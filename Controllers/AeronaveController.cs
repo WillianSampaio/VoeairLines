@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VoeAirlines.Entities;
 using VoeAirlines.Services;
 using VoeAirlines.ViewModels.Aeronave;
 
@@ -13,24 +14,6 @@ namespace VoeAirlines.Controllers
         public AeronaveController(AeronaveService aeronaveService)
         {
             _aeronaveService = aeronaveService;
-        }
-
-        [HttpPost]
-        public IActionResult AdicionarAeronave(AdicionarAeronaveViewModel dados)
-        {
-            var aeronave = _aeronaveService.AdicionarAeronave(dados);
-            return Ok(aeronave);            
-        }
-
-        [HttpPut("{id:int}")]
-        public IActionResult AtualizarAeronave(int id, AtualizarAeronaveViewModel dados)
-        {
-            //if (id != dados.Id)
-            //{
-            //    return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição");
-            //}
-            var aeronave = _aeronaveService.AtualizarAeronave(id, dados);
-            return Ok(aeronave);
         }
 
         [HttpGet]
@@ -48,6 +31,21 @@ namespace VoeAirlines.Controllers
                 return Ok(aeronave);
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult AdicionarAeronave(AdicionarAeronaveViewModel dados)
+        {
+            var aeronave = _aeronaveService.AdicionarAeronave(dados);
+            
+            return Created(nameof(AdicionarAeronave), aeronave);            
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult AtualizarAeronave(int id, AtualizarAeronaveViewModel dados)
+        {
+            var aeronave = _aeronaveService.AtualizarAeronave(id, dados);
+            return Ok(aeronave);
         }
 
         [HttpDelete("{id:int}")]

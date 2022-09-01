@@ -16,20 +16,6 @@ namespace VoeAirlines.Controllers
             _cancelamentoService = service;
         }
 
-        [HttpPost]
-        public IActionResult AdicionarCancelamento(AdicionarCancelamentoViewModel dados)
-        {
-            var aeronave = _cancelamentoService.AdicionarCancelamento(dados);
-            return Ok(aeronave);
-        }
-
-        [HttpPut("{id:int}")]
-        public IActionResult AtualizarCancelamento(int id, AtualizarCancelamentoViewModel dados)
-        {
-            var cancelamento = _cancelamentoService.AtualizarCancelamento(id, dados);
-            return Ok(cancelamento);
-        }
-
         [HttpGet]
         public IActionResult ListarCancelamento()
         {
@@ -40,6 +26,20 @@ namespace VoeAirlines.Controllers
         public IActionResult ListarCancelamentoPorId(int id)
         {
             var cancelamento = _cancelamentoService.ListarCancelamentoPorId(id);
+            return Ok(cancelamento);
+        }
+
+        [HttpPost]
+        public IActionResult AdicionarCancelamento(AdicionarCancelamentoViewModel dados)
+        {
+            var aeronave = _cancelamentoService.AdicionarCancelamento(dados);
+            return Created(nameof(AdicionarCancelamento), aeronave);
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult AtualizarCancelamento(int id, AtualizarCancelamentoViewModel dados)
+        {
+            var cancelamento = _cancelamentoService.AtualizarCancelamento(id, dados);
             return Ok(cancelamento);
         }
 

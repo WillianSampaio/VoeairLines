@@ -11,7 +11,6 @@ namespace VoeAirlines.Entities
             AeronaveId = aeronaveId;
             this.TipoManutencao = tipoManutencao;
             Observacao = observacao;
-            
         }
         
         public int Id { get; set; }
@@ -19,7 +18,6 @@ namespace VoeAirlines.Entities
         public TipoManutencao TipoManutencao { get; set; }
         public string? Observacao { get; set; }
         public int AeronaveId { get; set; }
-
        
         public Aeronave Aeronave { get; set; } = null!;
     }

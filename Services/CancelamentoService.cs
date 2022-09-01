@@ -26,15 +26,17 @@ namespace VoeAirlines.Services
 
         public DetalhesCancelamentoViewModel? AtualizarCancelamento(int id, AtualizarCancelamentoViewModel dados)
         {
-            var cancelamentoParaAtualizar = _context.Cancelamentos.Find(id);
-            if (cancelamentoParaAtualizar != null)
+            var cancelamento = _context.Cancelamentos.Find(id);
+            if (cancelamento != null)
             {
-                if (id == cancelamentoParaAtualizar.Id)
+                if (id == cancelamento.Id)
                 {
-                    var cancelamentoAtualizada = new AtualizarCancelamentoViewModel(dados.Motivo, dados.DataHoraNotificacao, dados.VooId);
-                    _context.Update(cancelamentoAtualizada);
+                    cancelamento.Motivo = dados.Motivo;
+                    cancelamento.DataHoraNotificacao = dados.DataHoraNotificacao;
+                    cancelamento.VooId = dados.VooId;
+                    _context.Update(cancelamento);
                     _context.SaveChanges();
-                    return new DetalhesCancelamentoViewModel(cancelamentoParaAtualizar.Id, cancelamentoParaAtualizar.Motivo, cancelamentoParaAtualizar.DataHoraNotificacao, cancelamentoParaAtualizar.VooId);
+                    return new DetalhesCancelamentoViewModel(cancelamento.Id, cancelamento.Motivo, cancelamento.DataHoraNotificacao, cancelamento.VooId);
                 }
             }
             return null;
@@ -58,14 +60,14 @@ namespace VoeAirlines.Services
 
         public DetalhesCancelamentoViewModel? RemoverCancelamento(int id)
         {
-            var cancelamentoParaRemover = _context.Cancelamentos.Find(id);
-            if (cancelamentoParaRemover != null)
+            var cancelamento = _context.Cancelamentos.Find(id);
+            if (cancelamento != null)
             {
-                if (id == cancelamentoParaRemover.Id)
+                if (id == cancelamento.Id)
                 {
-                    _context.Cancelamentos.Remove(cancelamentoParaRemover);
+                    _context.Cancelamentos.Remove(cancelamento);
                     _context.SaveChanges();
-                    return new DetalhesCancelamentoViewModel(cancelamentoParaRemover.Id, cancelamentoParaRemover.Motivo, cancelamentoParaRemover.DataHoraNotificacao, cancelamentoParaRemover.VooId);
+                    return new DetalhesCancelamentoViewModel(cancelamento.Id, cancelamento.Motivo, cancelamento.DataHoraNotificacao, cancelamento.VooId);
                 }
 
             }
